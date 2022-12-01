@@ -28,13 +28,14 @@ class NetscapeBookmarkFormatImporter @Inject constructor() : BookmarkImporter {
      */
     private fun Element.processFolder(folderName: String): List<Bookmark.Entry> {
         return children()
-            .filter { it.isTag(ITEM_TAG) }
+            .filter { e -> e.isTag(ITEM_TAG) }
             .flatMap {
                 val immediateChild = it.child(0)
                 when {
                     immediateChild.isTag(FOLDER_TAG) ->
                         immediateChild.nextElementSibling()
-                            .processFolder(computeFolderName(folderName, immediateChild.text()))
+                            ?.processFolder(computeFolderName(folderName, immediateChild.text()))
+                            ?: emptyList()
                     immediateChild.isTag(BOOKMARK_TAG) ->
                         listOf(Bookmark.Entry(
                             url = immediateChild.attr(HREF),
