@@ -11,7 +11,7 @@ if (project.file('keystore/signingConfig.gradle').exists()) {
 }
 
 android {
-    compileSdkVersion project.targetSdkVersion
+    compileSdkVersion project.compileSdkVersion
     buildToolsVersion project.buildToolsVersion
 
     defaultConfig {
