@@ -6,6 +6,10 @@ apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions'
 
+if (project.file('keystore/signingConfig.gradle').exists()) {
+    apply from: 'keystore/signingConfig.gradle'
+}
+
 android {
     compileSdkVersion project.targetSdkVersion
     buildToolsVersion project.buildToolsVersion
